@@ -2,7 +2,7 @@
 name: Reply Comment command
 on:
   issue_comment:                                     
-    types: [created, edited, deleted]
+    types: [created, edited]
 jobs:
    reply-on-comment:
      runs-on: ubuntu-latest
