@@ -1,0 +1,26 @@
+#If a user responds with a command /hello a bot responds saying hello
+name: Reply Comment command
+on:
+  issue_comment:                                     
+    types: [created, edited, deleted]
+jobs:
+   reply-on-comment:
+     runs-on: ubuntu-latest
+     steps:
+      - name: Echo hello
+        if: contains(github.event.comment.body, '/hello')
+        run: |
+          echo hello
+
+      - name: Reply to comment
+        if: contains(github.event.comment.body, '/hello')
+        uses: actions/github-script@v6
+        with: 
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'hello!'
+            });
+

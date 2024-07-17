@@ -1,0 +1,17 @@
+# Each time a PR is made, a message is written into the comments of the PR that the PR is successful
+name: Comment on PR
+on:
+  pull_request:
+    types: [opened, reopened]
+jobs:
+  comment-on-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Post a comment on PR
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "The PR is successful"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
