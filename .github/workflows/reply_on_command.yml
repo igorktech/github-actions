@@ -6,6 +6,9 @@ on:
 jobs:
    reply-on-comment:
      runs-on: ubuntu-latest
+     permissions:
+        contents: read
+        issues: write
      steps:
       - name: Echo hello
         if: contains(github.event.comment.body, '/hello')
